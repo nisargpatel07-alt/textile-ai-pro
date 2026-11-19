@@ -1,16 +1,16 @@
-# Pitfalls
+# Pitfalls that must never return
 
-These are mandatory acceptance constraints:
+Each item needs a regression test before the related feature is called done.
 
-1. Never revoke a blob URL while it is still in use. Prefer `createImageBitmap` or retain URLs until replacement/unmount.
-2. The canvas shown to the user is the canvas that exports.
-3. Recolour exact work in Lab with soft source matching and lightness preservation.
-4. Never generate an identity colourway.
-5. Keep source palette matching independent from editable target palette values.
-6. Display real percentages, never raw counts.
-7. Never show invented saved, storage, document-size or ruler values.
-8. Disable unbuilt features and state the reason.
-9. Validate controlled text fields on blur or Enter.
-10. Use stable row IDs as React keys.
-11. Run heavy pixel loops in workers or bounded chunks.
-12. Refuse exports with no source and re-open exported files for verification.
+1. **Revoked object URLs.** Never call URL.revokeObjectURL while any element still uses that URL. Prefer createImageBitmap so no URL is needed. Test: import an image, re-render the view, confirm the image still displays.
+2. **Screen equals export.** The canvas the user sees must be the same data that is exported. Test: recolour, export, compare exported pixels with the displayed canvas.
+3. **No flat recolouring.** Never snap each pixel to a flat palette colour. Shift each pixel relative to its matched palette colour in Lab so shading and texture survive. Test: two different shades of one region must map to two different output shades.
+4. **No identity colourways.** Colourway rotation must never return the unchanged palette. Test: every variant index differs from the original.
+5. **Source vs target palette.** Editing a target palette must not change the source palette used for matching pixels. Test: edit a target swatch, confirm matching is unchanged.
+6. **Real percentages.** Percentages must be real shares that sum to about 100. Never show raw counts as percent. Test: palette shares sum to 100 plus or minus rounding.
+7. **No fake status.** No "Saved" badge without saving, no storage meter without storage, no static rulers or dimensions. Test: every status element is bound to real state.
+8. **No dead buttons.** Unbuilt features are disabled with the reason shown. Test: a UI test clicks every enabled button and expects an effect.
+9. **Typeable inputs.** Controlled inputs must allow partial typing; validate on blur or Enter. Test: type a hex colour one character at a time.
+10. **Stable list keys.** Never derive keys from editable values. Test: change a colour and confirm the row is not remounted.
+11. **Heavy loops off the main thread.** Pixel loops run in Workers or yielding chunks, with progress and cancel. Test: a 4,000 px image keeps the interface responsive.
+12. **Safe export.** Export refuses when there is nothing to export and verifies the file it wrote. Test: export with no image is blocked; exported files are re-read and checked.

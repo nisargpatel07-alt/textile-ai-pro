@@ -1,7 +1,9 @@
 # Textile AI Studio
 
-A milestone-based monorepo for textile design and print-production tooling.
+A textile design and print-production platform: same-to-same colourways, seamless repeats, colour and spot separation, vectorising, enhancement and verified print-ready export.
 
-## M0 status
+Status: foundation in progress. Nothing is claimed as working unless a test proves it.
 
-M0 foundation is being implemented. See `AGENTS.md` and `.github/pull_request_template.md`.
+- Rules for contributors and coding agents: [AGENTS.md](AGENTS.md)
+- Mistakes that must not return: [docs/pitfalls.md](docs/pitfalls.md)
+- Milestones: one GitHub issue per milestone, M0 to M8
