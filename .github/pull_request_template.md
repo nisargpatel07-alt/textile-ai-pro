@@ -6,10 +6,6 @@
 
 <!-- List test names and CI results. -->
 
-## Done but not tested
-
-## Not built
-
 ## Requires configuration
 
 ## Benchmark numbers vs targets
